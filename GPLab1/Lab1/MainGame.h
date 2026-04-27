@@ -33,13 +33,17 @@ private:
 	Shader ADS;
 
 	Mesh duckMesh;
-	Mesh ballMesh;
-	Mesh buoyMesh;
+	Mesh ballBlueMesh;
+	Mesh ballYellowMesh;
+	Mesh buoyRedMesh;
+	Mesh buoyWhiteMesh;
 	Mesh waterMesh;
 
 	Texture duckTexture;
-	Texture ballTexture;
-	Texture buoyTexture;
+	Texture ballBlueTexture;
+	Texture ballYellowTexture;
+	Texture buoyRedTexture;
+	Texture buoyWhiteTexture;
 	Texture waterTexture;
 
 	Transform duckTransform;

@@ -99,5 +99,17 @@
     <Object Include="..\res\lifebuoy.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="..\res\lifebuoyred.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="..\res\lifebuoywhite.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="..\res\VolleyBallBlue.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="..\res\VolleyBallYellow.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>

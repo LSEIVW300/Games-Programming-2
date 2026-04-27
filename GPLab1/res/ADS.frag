@@ -1,27 +1,29 @@
 #version 330 core
 
-in vec3 FragPos;  // Interpolated fragment position from the vertex shader
-in vec3 Normal;   // Interpolated normal
+in vec3 FragPos;
+in vec3 Normal;
+in vec2 TexCoord;
 
-uniform vec3 lightPos;  // Position of the light source
-uniform vec3 lightColor; // Color of the light
-uniform vec3 objectColor; // Base color of the object
+uniform vec3 lightPos;
+uniform vec3 lightColor;
+uniform vec3 objectColor;
+uniform sampler2D diffuse;
 
-out vec4 FragColor; // Final output color
+out vec4 FragColor;
 
 void main()
 {
-    // Ambient lighting
-    float ambientStrength = 0.1;
+    vec3 textureColor = texture(diffuse, TexCoord).rgb;
+
+    float ambientStrength = 0.4;
     vec3 ambient = ambientStrength * lightColor;
 
-    // Diffuse lighting
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuseLight = diff * lightColor;
 
-    // Combine results
-    vec3 result = (ambient + diffuse) * objectColor;
+    vec3 result = (ambient + diffuseLight) * textureColor * objectColor;
+
     FragColor = vec4(result, 1.0);
 }

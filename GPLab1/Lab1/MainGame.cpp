@@ -49,21 +49,26 @@ void MainGame::initSystems()
 	
 	duckMesh.loadModel("..\\res\\duck.obj");
 
-	ballMesh.loadModel("..\\res\\ball.obj");
-	buoyMesh.loadModel("..\\res\\buoy.obj");
+	ballBlueMesh.loadModel("..\\res\\VolleyBallBlue.obj");
+	ballYellowMesh.loadModel("..\\res\\VolleyBallYellow.obj");
+	buoyRedMesh.loadModel("..\\res\\lifebuoyred.obj");
+	buoyWhiteMesh.loadModel("..\\res\\lifebuoywhite.obj");
 
-	duckTexture.init("..\\res\\bricks.jpg");
-	ballTexture.init("..\\res\\Water.jpg");
-	buoyTexture.init("..\\res\\bricks.jpg");
+	duckTexture.init("..\\res\\yellow.jpg");
+	ballBlueTexture.init("..\\res\\blue.jpg");
+	ballYellowTexture.init("..\\res\\yellow.jpg");
+	buoyRedTexture.init("..\\res\\red.jpg");
+	buoyWhiteTexture.init("..\\res\\white.jpg");
+	//waterTexture.init("..\\res\\water.jpg");
 
 	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
 	duckTransform.SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	ballTransform.SetPos(glm::vec3(2.0f, 0.0f, -5.0f));
+	ballTransform.SetPos(glm::vec3(4.0f, 0.0f, -5.5f));
 	ballTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 
-	buoyTransform.SetPos(glm::vec3(-2.0f, 0.0f, -5.0f));
-	buoyTransform.SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
+	buoyTransform.SetPos(glm::vec3(-0.5f, 0.0f, -5.5f));
+	buoyTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 
 	//waterTransform.SetPos(glm::vec3(0.0f, -0.3f, -5.0f));
 	//waterTransform.SetScale(glm::vec3(8.0f, 1.0f, 8.0f));
@@ -72,7 +77,7 @@ void MainGame::initSystems()
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
-	myCamera.initCamera(glm::vec3(0.0f, 4.0f, -10.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.initCamera(glm::vec3(0.0f, 9.0f, -14.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.0f));
 	counter = 0.0f;
 }
@@ -142,25 +147,35 @@ void MainGame::drawGame()
 
 	ADS.Bind();
 	linkADS();
-	//shader.Bind();
-	//shader.Update(transform, myCamera);
-	
-	//Duck
+
+	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
+
+	// Duck
 	duckTexture.Bind(0);
 	ADS.Update(duckTransform, myCamera);
 	duckMesh.draw();
 
-	//Ball
-	ballTexture.Bind(0);
+	// Ball blue part
+	ballBlueTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
-	ballMesh.draw();
+	ballBlueMesh.draw();
 
-	//Buoy
-	buoyTexture.Bind(0);
+	// Ball yellow part
+	ballYellowTexture.Bind(0);
+	ADS.Update(ballTransform, myCamera);
+	ballYellowMesh.draw();
+
+	// Buoy red part
+	buoyRedTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
-	buoyMesh.draw();
+	buoyRedMesh.draw();
+
+	// Buoy white part
+	buoyWhiteTexture.Bind(0);
+	ADS.Update(buoyTransform, myCamera);
+	buoyWhiteMesh.draw();
 
 	counter = counter + 0.01f;
 
 	_gameDisplay.swapBuffer();
-} 
+}
