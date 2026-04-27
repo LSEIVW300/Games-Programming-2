@@ -25,7 +25,7 @@ void MainGame::linkADS()
 	glm::vec3 lightPos(20.0f, 20.0f, 20.0f);
 
 	// Define the light color (white light)
-	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+	glm::vec3 lightColor(1.5f, 1.5f, 1.5f);
 
 	// Define the object color
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
@@ -57,15 +57,23 @@ void MainGame::initSystems()
 	buoyTexture.init("..\\res\\bricks.jpg");
 
 	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
+	duckTransform.SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+
 	ballTransform.SetPos(glm::vec3(2.0f, 0.0f, -5.0f));
-	buoyTransform.SetPos(glm::vec3(0.0f, -1.0f, -5.0f));
-	buoyTransform.SetScale(glm::vec3(5.0f, 0.5f, 5.0f));
+	ballTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
+
+	buoyTransform.SetPos(glm::vec3(-2.0f, 0.0f, -5.0f));
+	buoyTransform.SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
+
+	//waterTransform.SetPos(glm::vec3(0.0f, -0.3f, -5.0f));
+	//waterTransform.SetScale(glm::vec3(8.0f, 1.0f, 8.0f));
 
 
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
-	myCamera.initCamera(glm::vec3(0, 0, -30), 70.0f, (float)_gameDisplay.getWidth()/_gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.initCamera(glm::vec3(0.0f, 4.0f, -10.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.0f));
 	counter = 0.0f;
 }
 

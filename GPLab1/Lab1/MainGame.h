@@ -35,14 +35,17 @@ private:
 	Mesh duckMesh;
 	Mesh ballMesh;
 	Mesh buoyMesh;
+	Mesh waterMesh;
 
 	Texture duckTexture;
 	Texture ballTexture;
 	Texture buoyTexture;
+	Texture waterTexture;
 
 	Transform duckTransform;
 	Transform ballTransform;
 	Transform buoyTransform;
+	Transform waterTransform;
 
 
 	float counter;

@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -83,8 +83,7 @@
               "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
               "ViewState": "AgIAAEQHAAAAAAAAAAAcwFIHAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-27T16:35:02.903Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T16:35:02.903Z"
             },
             {
               "$type": "Document",
@@ -111,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Mesh.cpp",
               "DocumentMoniker": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Mesh.cpp",
               "RelativeDocumentMoniker": "Lab1\\Mesh.cpp",
@@ -119,8 +118,7 @@
               "RelativeToolTip": "Lab1\\Mesh.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-03T20:46:33.061Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T20:46:33.061Z"
             },
             {
               "$type": "Document",
@@ -148,13 +146,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainGame.h",
               "DocumentMoniker": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.h",
               "RelativeDocumentMoniker": "Lab1\\MainGame.h",
               "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.h",
               "RelativeToolTip": "Lab1\\MainGame.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-10-03T20:22:07.985Z",
               "EditorCaption": ""
@@ -169,8 +167,7 @@
               "RelativeToolTip": "Lab1\\transform.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-03T19:54:30.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:54:30.723Z"
             },
             {
               "$type": "Document",
@@ -240,7 +237,7 @@
               "RelativeDocumentMoniker": "Lab1\\MainGame.cpp",
               "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp",
               "RelativeToolTip": "Lab1\\MainGame.cpp",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADEAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAD4AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-03T19:49:53.095Z",
               "EditorCaption": ""
@@ -267,8 +264,7 @@
               "RelativeToolTip": "Lab1\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-03T19:42:04.877Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:42:04.877Z"
             }
           ]
         }

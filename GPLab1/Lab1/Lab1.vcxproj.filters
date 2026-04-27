@@ -96,5 +96,8 @@
     <Object Include="..\res\duck.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="..\res\lifebuoy.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>
