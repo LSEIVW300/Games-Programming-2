@@ -1,6 +1,7 @@
 #include "Mesh.h"
 #include <vector>
-
+#include <iostream>
+#include <string>
 
 void Mesh::init(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices)
 {
@@ -21,7 +22,7 @@ void Mesh::init(Vertex* vertices, unsigned int numVertices, unsigned int* indice
 
 void Mesh::initModel(const IndexedModel& model)
 {
-	
+	drawCount = model.indices.size();
 	drawCount = model.indices.size();
 
 	glGenVertexArrays(1, &vertexArrayObject); //generate a vertex array and store it in the VAO

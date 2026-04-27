@@ -7,7 +7,6 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
-	Display* _gameDisplay = new Display(); //new display
 }
 
 MainGame::~MainGame()
@@ -28,8 +27,8 @@ void MainGame::linkADS()
 	// Define the light color (white light)
 	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
-	// Define the object color (red object in this case)
-	glm::vec3 objectColor(1.0f, 0.0f, 0.0f);
+	// Define the object color
+	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
 
 	// Set the light position uniform in your shader
 	ADS.setVec3("lightPos", lightPos);
@@ -40,10 +39,6 @@ void MainGame::linkADS()
 	// Set the object color uniform in your shader
 	ADS.setVec3("objectColor", objectColor);
 
-	glm::mat4 modelMatrix = transform.GetModel();
-
-	// Set the model matrix uniform in your shader
-	ADS.setMat4("model", modelMatrix);
 }
 
 
@@ -51,9 +46,22 @@ void MainGame::initSystems()
 {
 	_gameDisplay.initDisplay(); 
 	//mesh1.init(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0])); //size calcuated by number of bytes of an array / no bytes of one element
-	mesh2.loadModel("..\\res\\monkey3.obj");
 	
-	texture.init("..\\res\\bricks.jpg"); //
+	duckMesh.loadModel("..\\res\\duck.obj");
+
+	ballMesh.loadModel("..\\res\\ball.obj");
+	buoyMesh.loadModel("..\\res\\buoy.obj");
+
+	duckTexture.init("..\\res\\bricks.jpg");
+	ballTexture.init("..\\res\\Water.jpg");
+	buoyTexture.init("..\\res\\bricks.jpg");
+
+	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
+	ballTransform.SetPos(glm::vec3(2.0f, 0.0f, -5.0f));
+	buoyTransform.SetPos(glm::vec3(0.0f, -1.0f, -5.0f));
+	buoyTransform.SetScale(glm::vec3(5.0f, 0.5f, 5.0f));
+
+
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
@@ -84,6 +92,39 @@ void MainGame::processInput()
 		}
 	}
 	
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+
+	glm::vec3 duckPos = *duckTransform.GetPos();
+	glm::vec3 duckRot = *duckTransform.GetRot();
+	glm::vec3 duckScale = *duckTransform.GetScale();
+
+	if (keys[SDL_SCANCODE_A])
+		duckPos.x -= 0.05f;
+
+	if (keys[SDL_SCANCODE_D])
+		duckPos.x += 0.05f;
+
+	if (keys[SDL_SCANCODE_W])
+		duckPos.z += 0.05f;
+
+	if (keys[SDL_SCANCODE_S])
+		duckPos.z -= 0.05f;
+
+	if (keys[SDL_SCANCODE_Q])
+		duckRot.y -= 0.03f;
+
+	if (keys[SDL_SCANCODE_E])
+		duckRot.y += 0.03f;
+
+	if (keys[SDL_SCANCODE_Z])
+		duckScale -= glm::vec3(0.01f);
+
+	if (keys[SDL_SCANCODE_X])
+		duckScale += glm::vec3(0.01f);
+
+	duckTransform.SetPos(duckPos);
+	duckTransform.SetRot(duckRot);
+	duckTransform.SetScale(duckScale);
 }
 
 
@@ -91,22 +132,27 @@ void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
 
-
-	transform.SetPos(glm::vec3(0.0, 0.0, 0.0));
-	transform.SetRot(glm::vec3(0.0, counter * 2, 0.0));
-	transform.SetScale(glm::vec3(5.0, 5.0, 5.0));
-
 	ADS.Bind();
 	linkADS();
-	ADS.Update(transform, myCamera);
 	//shader.Bind();
 	//shader.Update(transform, myCamera);
-	texture.Bind(0);
-	mesh2.draw();
+	
+	//Duck
+	duckTexture.Bind(0);
+	ADS.Update(duckTransform, myCamera);
+	duckMesh.draw();
+
+	//Ball
+	ballTexture.Bind(0);
+	ADS.Update(ballTransform, myCamera);
+	ballMesh.draw();
+
+	//Buoy
+	buoyTexture.Bind(0);
+	ADS.Update(buoyTransform, myCamera);
+	buoyMesh.draw();
+
 	counter = counter + 0.01f;
-				
-	glEnableClientState(GL_COLOR_ARRAY); 
-	glEnd();
 
 	_gameDisplay.swapBuffer();
 } 

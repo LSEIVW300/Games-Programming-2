@@ -27,13 +27,22 @@ private:
 
 	Display _gameDisplay;
 	GameState _gameState;
-	Mesh mesh1;
-	Mesh mesh2;
+	
 	Camera myCamera;
-	Texture texture; 
 	Shader shader;
 	Shader ADS;
-	Transform transform;
+
+	Mesh duckMesh;
+	Mesh ballMesh;
+	Mesh buoyMesh;
+
+	Texture duckTexture;
+	Texture ballTexture;
+	Texture buoyTexture;
+
+	Transform duckTransform;
+	Transform ballTransform;
+	Transform buoyTransform;
 
 
 	float counter;

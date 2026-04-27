@@ -87,5 +87,14 @@
     <Object Include="..\res\monkey3.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="..\res\ball.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="..\res\buoy.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="..\res\duck.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>
