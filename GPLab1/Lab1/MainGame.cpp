@@ -22,10 +22,10 @@ void MainGame::run()
 void MainGame::linkADS()
 {
 	// Define the light position
-	glm::vec3 lightPos(0.0f, 8.0f, -8.0f);
+	glm::vec3 lightPos(0.0f, 10.0f, -8.0f);
 
 	// Define the light color (white light)
-	glm::vec3 lightColor(2.0f, 2.0f, 2.0f);
+	glm::vec3 lightColor(1.1f, 1.1f, 1.1f);
 
 	// Define the object color
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
@@ -80,8 +80,8 @@ void MainGame::initSystems()
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
-	myCamera.initCamera(glm::vec3(0.0f, 9.0f, -14.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
-	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.0f));
+	myCamera.initCamera(glm::vec3(0.0f, 12.0f, -22.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.5f));
 	counter = 0.0f;
 }
 
@@ -109,56 +109,29 @@ void MainGame::processInput()
 		}
 	}
 	
-	/*const Uint8* keys = SDL_GetKeyboardState(NULL);
-
-	glm::vec3 duckPos = *duckTransform.GetPos();
-	glm::vec3 duckRot = *duckTransform.GetRot();
-	glm::vec3 duckScale = *duckTransform.GetScale();
-
-	if (keys[SDL_SCANCODE_A])
-		duckPos.x -= 0.05f;
-
-	if (keys[SDL_SCANCODE_D])
-		duckPos.x += 0.05f;
-
-	if (keys[SDL_SCANCODE_W])
-		duckPos.z += 0.05f;
-
-	if (keys[SDL_SCANCODE_S])
-		duckPos.z -= 0.05f;
-
-	if (keys[SDL_SCANCODE_Q])
-		duckRot.y -= 0.03f;
-
-	if (keys[SDL_SCANCODE_E])
-		duckRot.y += 0.03f;
-
-	if (keys[SDL_SCANCODE_Z])
-		duckScale -= glm::vec3(0.01f);
-
-	if (keys[SDL_SCANCODE_X])
-		duckScale += glm::vec3(0.01f);
-
-	duckTransform.SetPos(duckPos);
-	duckTransform.SetRot(duckRot);
-	duckTransform.SetScale(duckScale); */
 }
 
 void MainGame::updateScene()
 {
-	counter += 0.005f;
+	counter += 0.0035f;
 
 	float t = counter;
 
+	float centreX = 0.0f;
+	float centreZ = -5.5f;
+
+	float width = 7.5f;
+	float depth = 4.8f;
+
 	//Duck figure 8 path
-	float duckX = sin(t) * 5.5f;
-	float duckZ = -5.5f + sin(t * 2.0f) * 3.0f;
+	float duckX = centreX + sin(t) * width;
+	float duckZ = centreZ + sin(t * 2.0f) * depth;
 
 	duckTransform.SetPos(glm::vec3(duckX, 0.0f, duckZ));
 
 	//Duck faces direction its travelling
-	float nextX = sin(t + 0.01f) * 5.5f;
-	float nextZ = -5.5f + sin((t + 0.01f) * 2.0f) * 3.0f;
+	float nextX = centreX + sin(t + 0.02f) * width;
+	float nextZ = centreZ + sin((t + 0.02f) * 2.0f) * depth;
 
 	float dirX = nextX - duckX;
 	float dirZ = nextZ - duckZ;
@@ -169,14 +142,13 @@ void MainGame::updateScene()
 
 	//objects drifting (makes it look like the water is pushing them)
 
-	ballTransform.SetPos(glm::vec3(4.0f, sin(t * 1.5f) * 0.15f, -5.5f));
-	ballTransform.SetRot(glm::vec3(sin(t * 1.4f) * 0.25f, 0.0f, -sin(t * 1.4f) * 0.25f));
+	ballTransform.SetPos(glm::vec3(4.5f, sin(t * 1.5f) * 0.18f, -5.5f));
+	ballTransform.SetRot(glm::vec3(sin(t) * 0.25f, 0.0f, cos(t) * 0.25f));
 
-	float buoyY = sin(t * 1.2f + 1.5f) * 0.12f;
-	float buoyRot = sin(t * 1.4f) * 0.25f;
+	
 
-	buoyTransform.SetPos(glm::vec3(-2.5f, buoyY, -5.5f));
-	buoyTransform.SetRot(glm::vec3(buoyRot, 0.0f, -buoyRot));
+	buoyTransform.SetPos(glm::vec3(-4.5f, sin(t * 1.3f + 1.5f) * 0.15f, -5.5f));
+	buoyTransform.SetRot(glm::vec3(sin(t * 1.4f) * 0.25f, 0.0f, -sin(t * 1.4f) * 0.25));
 }
 
 void MainGame::drawGame()
