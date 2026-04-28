@@ -74,7 +74,7 @@ void MainGame::initSystems()
 	buoyTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 
 	waterTransform.SetPos(glm::vec3(0.0f, -0.4f, -5.0f));
-	waterTransform.SetScale(glm::vec3(10.0f, 1.0f, 10.0f));
+	waterTransform.SetScale(glm::vec3(18.0f, 1.0f, 18.0f));
 
 
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
@@ -161,31 +161,39 @@ void MainGame::drawGame()
 	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
 
 	// Water
+	ADS.setInt("isWater", 1);
+	ADS.setFloat("time", counter);
+
 	waterTexture.Bind(0);
 	ADS.Update(waterTransform, myCamera);
 	waterMesh.draw();
 
 	// Duck
+	ADS.setInt("isWater", 0);
 	duckTexture.Bind(0);
 	ADS.Update(duckTransform, myCamera);
 	duckMesh.draw();
 
 	// Ball blue part
+	ADS.setInt("isWater", 0);
 	ballBlueTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballBlueMesh.draw();
 
 	// Ball yellow part
+	ADS.setInt("isWater", 0);
 	ballYellowTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballYellowMesh.draw();
 
 	// Buoy red part
+	ADS.setInt("isWater", 0);
 	buoyRedTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
 	buoyRedMesh.draw();
 
 	// Buoy white part
+	ADS.setInt("isWater", 0);
 	buoyWhiteTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
 	buoyWhiteMesh.draw();
