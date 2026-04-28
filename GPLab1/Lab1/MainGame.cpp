@@ -74,10 +74,10 @@ void MainGame::initSystems()
 	buoyTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 
 	waterTransform.SetPos(glm::vec3(0.0f, -0.4f, -5.0f));
-	waterTransform.SetScale(glm::vec3(18.0f, 1.0f, 18.0f));
+	waterTransform.SetScale(glm::vec3(25.0f, 1.0f, 18.0f));
 
 
-	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
+	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //water shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
 	myCamera.initCamera(glm::vec3(0.0f, 10.0f, -17.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
