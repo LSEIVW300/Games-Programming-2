@@ -23,6 +23,21 @@ public:
 		return this->pos;
 	}
 
+
+	void setForward(glm::vec3 newForward)
+	{
+		forward = glm::normalize(newForward);
+	}
+
+	glm::vec3 getForward()
+	{
+		return forward;
+	}
+
+	glm::vec3 getUp()
+	{
+		return up;
+	}
 	inline glm::mat4 getViewProjection() const
 	{
 		return projection * glm::lookAt(pos, pos + forward, up);

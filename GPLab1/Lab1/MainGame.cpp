@@ -79,16 +79,45 @@ void MainGame::initSystems()
 
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //water shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
+	skyboxShader.init("..\\res\\skybox.vert", "..\\res\\skybox.frag");
+
+	std::vector<std::string> faces
+	{
+		"..\\res\\skybox\\right.jpg",
+		"..\\res\\skybox\\left.jpg",
+		"..\\res\\skybox\\top.jpg",
+		"..\\res\\skybox\\bottom.jpg",
+		"..\\res\\skybox\\front.jpg",
+		"..\\res\\skybox\\back.jpg"
+	};
+
+	skybox.init(faces);
 
 	myCamera.initCamera(glm::vec3(0.0f, 10.0f, -17.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.5f));
 	counter = 0.0f;
+
+	cameraYaw = -90.0f;
+	cameraPitch = -25.0f;
+	firstMouse = true;
+	lastMouseX = 0.0f;
+	lastMouseY = 0.0f;
+
+	deltaTime = 0.0f;
+	lastFrameTime = (float)SDL_GetTicks();
+	cameraVelocity = glm::vec3(0.0f);
+
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void MainGame::gameLoop()
 {
 	while (_gameState != GameState::EXIT)
 	{
+		float currentFrameTime = (float)SDL_GetTicks();
+		deltaTime = (currentFrameTime - lastFrameTime) / 1000.0f;
+		lastFrameTime = currentFrameTime;
+
 		processInput();
 		updateScene();
 		drawGame();
@@ -99,14 +128,92 @@ void MainGame::processInput()
 {
 	SDL_Event evnt;
 
+	const float moveSpeed = 6.0f * deltaTime;
+	const float rotateSpeed = 90.0f * deltaTime;
+	const float mouseSensitivity = 0.08f;
+
 	while(SDL_PollEvent(&evnt)) //get and process events
 	{
 		switch (evnt.type)
 		{
 			case SDL_QUIT:
 				_gameState = GameState::EXIT;
-				break;
 		}
+
+		if (evnt.type == SDL_KEYDOWN)
+		{
+			if (evnt.key.keysym.sym == SDLK_ESCAPE)
+			{
+				_gameState = GameState::EXIT;
+			}
+		}
+		if (evnt.type == SDL_MOUSEMOTION)
+		{
+			float xOffset = (float)evnt.motion.xrel * mouseSensitivity;
+			float yOffset = (float)-evnt.motion.yrel * mouseSensitivity;
+
+			cameraYaw += xOffset;
+			cameraPitch += yOffset;
+
+			if (cameraPitch > 89.0f)
+				cameraPitch = 89.0f;
+
+			if (cameraPitch < -89.0f)
+				cameraPitch = -89.0f;
+		}
+
+		const Uint8* keys = SDL_GetKeyboardState(NULL);
+
+		glm::vec3 camPos = myCamera.getPos();
+		glm::vec3 camForward = myCamera.getForward();
+		glm::vec3 camUp = myCamera.getUp();
+		glm::vec3 camRight = glm::normalize(glm::cross(camForward, camUp));
+
+		glm::vec3 flatForward = glm::normalize(glm::vec3(camForward.x, 0.0f, camForward.z));
+		glm::vec3 flatRight = glm::normalize(glm::cross(flatForward, camUp));
+
+		glm::vec3 targetVelocity(0.0f);
+
+		float speed = 6.0f;
+
+		if (keys[SDL_SCANCODE_W])
+			targetVelocity += flatForward * speed;
+
+		if (keys[SDL_SCANCODE_S])
+			targetVelocity -= flatForward * speed;
+
+		if (keys[SDL_SCANCODE_A])
+			targetVelocity -= flatRight * speed;
+
+		if (keys[SDL_SCANCODE_D])
+			targetVelocity += flatRight * speed;
+
+		if (keys[SDL_SCANCODE_SPACE])
+			targetVelocity += camUp * speed;
+
+		if (keys[SDL_SCANCODE_LCTRL])
+			targetVelocity -= camUp * speed;
+
+		float smoothing = 10.0f;
+		cameraVelocity += (targetVelocity - cameraVelocity) * smoothing * deltaTime;
+
+		camPos += cameraVelocity * deltaTime;
+
+		myCamera.setPos(camPos);
+
+		if (keys[SDL_SCANCODE_Q]) 
+			cameraYaw -= 90.0f * deltaTime;
+
+		if (keys[SDL_SCANCODE_E])
+			cameraYaw += 90.0f * deltaTime;
+
+		glm::vec3 direction;
+		direction.x = cos(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
+		direction.y = sin(glm::radians(cameraPitch));
+		direction.z = sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
+
+		myCamera.setForward(direction);
+
 	}
 	
 }
@@ -195,6 +302,21 @@ void MainGame::drawGame()
 	buoyWhiteMesh.draw();
 
 	//counter = counter + 0.01f;
+
+	glDepthFunc(GL_LEQUAL);
+
+	skyboxShader.Bind();
+
+	glm::mat4 view = glm::mat4(glm::mat3(myCamera.getView()));
+	glm::mat4 projection = myCamera.getProjection();
+
+	glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID(), "view"), 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+	glUniform1i(glGetUniformLocation(skyboxShader.ID(), "skybox"), 0);
+
+	skybox.draw();
+
+	glDepthFunc(GL_LESS);
 
 	_gameDisplay.swapBuffer();
 }

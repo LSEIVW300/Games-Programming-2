@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "transform.h"
+#include "Skybox.h"
 
 enum class GameState{PLAY, EXIT};
 
@@ -32,6 +33,18 @@ private:
 	Camera myCamera;
 	Shader shader;
 	Shader ADS;
+	Shader skyboxShader;
+	Skybox skybox;
+
+	float cameraYaw;
+	float cameraPitch;
+	bool firstMouse;
+	float lastMouseX;
+	float lastMouseY;
+
+	float deltaTime;
+	float lastFrameTime;
+	glm::vec3 cameraVelocity;
 
 	Mesh duckMesh;
 	Mesh ballBlueMesh;
