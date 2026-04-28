@@ -9,21 +9,13 @@ uniform vec3 lightColor;
 uniform vec3 viewPos;
 uniform vec3 objectColor;
 uniform sampler2D diffuse;
-uniform float time;
-uniform int isWater;
 
 out vec4 FragColor;
 
 void main()
 {
-    vec2 uv = TexCoord;
 
-    if (isWater == 1)
-    {
-        uv.x += time * 0.03;
-        uv.y += time * 0.02;
-    }
-    vec3 textureColor = texture(diffuse, uv).rgb;
+    vec3 textureColor = texture(diffuse, TexCoord).rgb;
 
     float ambientStrength = 0.38;
     vec3 ambient = ambientStrength * lightColor;

@@ -155,45 +155,41 @@ void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
 
-	ADS.Bind();
-	linkADS();
-
-	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
-
 	// Water
-	ADS.setInt("isWater", 1);
-	ADS.setFloat("time", counter);
+	shader.Bind();
+
+	glUniform1i(glGetUniformLocation(shader.ID(), "diffuse"), 0);
+	shader.setFloat("time", counter);
 
 	waterTexture.Bind(0);
-	ADS.Update(waterTransform, myCamera);
+	shader.Update(waterTransform, myCamera);
 	waterMesh.draw();
 
+	ADS.Bind();
+	linkADS();
+	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
+
 	// Duck
-	ADS.setInt("isWater", 0);
 	duckTexture.Bind(0);
 	ADS.Update(duckTransform, myCamera);
 	duckMesh.draw();
 
 	// Ball blue part
-	ADS.setInt("isWater", 0);
 	ballBlueTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballBlueMesh.draw();
 
 	// Ball yellow part
-	ADS.setInt("isWater", 0);
 	ballYellowTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballYellowMesh.draw();
 
 	// Buoy red part
-	ADS.setInt("isWater", 0);
 	buoyRedTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
 	buoyRedMesh.draw();
 
 	// Buoy white part
-	ADS.setInt("isWater", 0);
 	buoyWhiteTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
 	buoyWhiteMesh.draw();
