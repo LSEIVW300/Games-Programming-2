@@ -22,10 +22,10 @@ void MainGame::run()
 void MainGame::linkADS()
 {
 	// Define the light position
-	glm::vec3 lightPos(0.0f, 10.0f, -8.0f);
+	glm::vec3 lightPos(0.0f, 8.0f, -8.0f);
 
 	// Define the light color (white light)
-	glm::vec3 lightColor(1.1f, 1.1f, 1.1f);
+	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 	// Define the object color
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
@@ -57,12 +57,12 @@ void MainGame::initSystems()
 	buoyWhiteMesh.loadModel("..\\res\\lifebuoywhite.obj");
 	waterMesh.loadModel("..\\res\\water.obj");
 
-	duckTexture.init("..\\res\\yellow.jpg");
-	ballBlueTexture.init("..\\res\\blue.jpg");
-	ballYellowTexture.init("..\\res\\yellow.jpg");
-	buoyRedTexture.init("..\\res\\red.jpg");
-	buoyWhiteTexture.init("..\\res\\white.jpg");
-	waterTexture.init("..\\res\\water.jpg");
+	duckTexture.init("..\\res\\rubberduckyellow.jpg");
+	ballBlueTexture.init("..\\res\\greenleather.jpg");
+	ballYellowTexture.init("..\\res\\whiteleather.jpg");
+	buoyRedTexture.init("..\\res\\redplastic.jpg");
+	buoyWhiteTexture.init("..\\res\\whiteplastic.jpg");
+	waterTexture.init("..\\res\\water1.jpg");
 
 	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
 	duckTransform.SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
@@ -80,7 +80,7 @@ void MainGame::initSystems()
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
 	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
 
-	myCamera.initCamera(glm::vec3(0.0f, 12.0f, -22.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.initCamera(glm::vec3(0.0f, 10.0f, -17.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.5f));
 	counter = 0.0f;
 }
