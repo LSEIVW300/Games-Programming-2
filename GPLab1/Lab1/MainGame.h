@@ -17,6 +17,7 @@ public:
 	void linkADS();
 
 	void run();
+	void updateScene();
 
 private:
 

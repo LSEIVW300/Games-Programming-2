@@ -111,5 +111,8 @@
     <Object Include="..\res\VolleyBallYellow.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="..\res\water.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>

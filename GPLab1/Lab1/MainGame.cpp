@@ -22,10 +22,10 @@ void MainGame::run()
 void MainGame::linkADS()
 {
 	// Define the light position
-	glm::vec3 lightPos(20.0f, 20.0f, 20.0f);
+	glm::vec3 lightPos(0.0f, 8.0f, -8.0f);
 
 	// Define the light color (white light)
-	glm::vec3 lightColor(1.5f, 1.5f, 1.5f);
+	glm::vec3 lightColor(2.0f, 2.0f, 2.0f);
 
 	// Define the object color
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
@@ -38,6 +38,8 @@ void MainGame::linkADS()
 
 	// Set the object color uniform in your shader
 	ADS.setVec3("objectColor", objectColor);
+
+	ADS.setVec3("viewPos", myCamera.getPos());
 
 }
 
@@ -53,13 +55,14 @@ void MainGame::initSystems()
 	ballYellowMesh.loadModel("..\\res\\VolleyBallYellow.obj");
 	buoyRedMesh.loadModel("..\\res\\lifebuoyred.obj");
 	buoyWhiteMesh.loadModel("..\\res\\lifebuoywhite.obj");
+	waterMesh.loadModel("..\\res\\water.obj");
 
 	duckTexture.init("..\\res\\yellow.jpg");
 	ballBlueTexture.init("..\\res\\blue.jpg");
 	ballYellowTexture.init("..\\res\\yellow.jpg");
 	buoyRedTexture.init("..\\res\\red.jpg");
 	buoyWhiteTexture.init("..\\res\\white.jpg");
-	//waterTexture.init("..\\res\\water.jpg");
+	waterTexture.init("..\\res\\water.jpg");
 
 	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
 	duckTransform.SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
@@ -70,8 +73,8 @@ void MainGame::initSystems()
 	buoyTransform.SetPos(glm::vec3(-0.5f, 0.0f, -5.5f));
 	buoyTransform.SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 
-	//waterTransform.SetPos(glm::vec3(0.0f, -0.3f, -5.0f));
-	//waterTransform.SetScale(glm::vec3(8.0f, 1.0f, 8.0f));
+	waterTransform.SetPos(glm::vec3(0.0f, -0.4f, -5.0f));
+	waterTransform.SetScale(glm::vec3(10.0f, 1.0f, 10.0f));
 
 
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //new shader
@@ -87,6 +90,7 @@ void MainGame::gameLoop()
 	while (_gameState != GameState::EXIT)
 	{
 		processInput();
+		updateScene();
 		drawGame();
 	}
 }
@@ -105,7 +109,7 @@ void MainGame::processInput()
 		}
 	}
 	
-	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	/*const Uint8* keys = SDL_GetKeyboardState(NULL);
 
 	glm::vec3 duckPos = *duckTransform.GetPos();
 	glm::vec3 duckRot = *duckTransform.GetRot();
@@ -137,9 +141,43 @@ void MainGame::processInput()
 
 	duckTransform.SetPos(duckPos);
 	duckTransform.SetRot(duckRot);
-	duckTransform.SetScale(duckScale);
+	duckTransform.SetScale(duckScale); */
 }
 
+void MainGame::updateScene()
+{
+	counter += 0.005f;
+
+	float t = counter;
+
+	//Duck figure 8 path
+	float duckX = sin(t) * 5.5f;
+	float duckZ = -5.5f + sin(t * 2.0f) * 3.0f;
+
+	duckTransform.SetPos(glm::vec3(duckX, 0.0f, duckZ));
+
+	//Duck faces direction its travelling
+	float nextX = sin(t + 0.01f) * 5.5f;
+	float nextZ = -5.5f + sin((t + 0.01f) * 2.0f) * 3.0f;
+
+	float dirX = nextX - duckX;
+	float dirZ = nextZ - duckZ;
+
+	float angle = atan2(dirX, dirZ);
+
+	duckTransform.SetRot(glm::vec3(0.0f, angle, 0.0f));
+
+	//objects drifting (makes it look like the water is pushing them)
+
+	ballTransform.SetPos(glm::vec3(4.0f, sin(t * 1.5f) * 0.15f, -5.5f));
+	ballTransform.SetRot(glm::vec3(sin(t * 1.4f) * 0.25f, 0.0f, -sin(t * 1.4f) * 0.25f));
+
+	float buoyY = sin(t * 1.2f + 1.5f) * 0.12f;
+	float buoyRot = sin(t * 1.4f) * 0.25f;
+
+	buoyTransform.SetPos(glm::vec3(-2.5f, buoyY, -5.5f));
+	buoyTransform.SetRot(glm::vec3(buoyRot, 0.0f, -buoyRot));
+}
 
 void MainGame::drawGame()
 {
@@ -149,6 +187,11 @@ void MainGame::drawGame()
 	linkADS();
 
 	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
+
+	// Water
+	waterTexture.Bind(0);
+	ADS.Update(waterTransform, myCamera);
+	waterMesh.draw();
 
 	// Duck
 	duckTexture.Bind(0);
@@ -175,7 +218,7 @@ void MainGame::drawGame()
 	ADS.Update(buoyTransform, myCamera);
 	buoyWhiteMesh.draw();
 
-	counter = counter + 0.01f;
+	//counter = counter + 0.01f;
 
 	_gameDisplay.swapBuffer();
 }
