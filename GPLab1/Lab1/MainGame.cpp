@@ -7,6 +7,7 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
+	audio.cleanUp();
 }
 
 MainGame::~MainGame()
@@ -15,7 +16,7 @@ MainGame::~MainGame()
 
 void MainGame::run()
 {
-	initSystems(); 
+	initSystems();
 	gameLoop();
 }
 
@@ -46,9 +47,9 @@ void MainGame::linkADS()
 
 void MainGame::initSystems()
 {
-	_gameDisplay.initDisplay(); 
+	_gameDisplay.initDisplay();
 	//mesh1.init(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0])); //size calcuated by number of bytes of an array / no bytes of one element
-	
+
 	duckMesh.loadModel("..\\res\\duck.obj");
 
 	ballBlueMesh.loadModel("..\\res\\VolleyBallBlue.obj");
@@ -64,7 +65,7 @@ void MainGame::initSystems()
 	buoyWhiteTexture.init("..\\res\\whiteplastic.jpg");
 	waterTexture.init("..\\res\\water1.jpg");
 
-	duckTransform.SetPos(glm::vec3(0.0f, 0.0f, -5.0f));
+	duckTransform.SetPos(glm::vec3(0.0f, -0.4f, -5.0f));
 	duckTransform.SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 
 	ballTransform.SetPos(glm::vec3(4.0f, 0.0f, -5.5f));
@@ -78,8 +79,8 @@ void MainGame::initSystems()
 
 
 	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //water shader
-	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //new shader
-	skyboxShader.init("..\\res\\skybox.vert", "..\\res\\skybox.frag");
+	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //ADS shader
+	skyboxShader.init("..\\res\\skybox.vert", "..\\res\\skybox.frag"); //skybox shader
 
 	std::vector<std::string> faces
 	{
@@ -108,15 +109,38 @@ void MainGame::initSystems()
 	cameraVelocity = glm::vec3(0.0f);
 
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+
+	audio.init();
+
+	waterBuffer = audio.loadWav("..\\res\\water.wav");
+	duckBuffer = audio.loadWav("..\\res\\duck.wav");
+
+	waterSource = audio.createSource(waterBuffer, true);
+	duckSource = audio.createSource(duckBuffer, false);
+
+	audio.play(waterSource);
+
+	duckWasAtCentre = false;
+
+	centreMarkerMesh.loadModel("..\\res\\centreMarker.obj");
+	centreMarkerTexture.init("..\\res\\whiteplastic.jpg");
+
+	centreMarkerTransform.SetPos(glm::vec3(0.0f, -0.35f, -5.5f));
+	centreMarkerTransform.SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+
 }
 
 void MainGame::gameLoop()
 {
+	Uint64 NOW = SDL_GetPerformanceCounter();
+	Uint64 LAST = 0;
+
 	while (_gameState != GameState::EXIT)
 	{
-		float currentFrameTime = (float)SDL_GetTicks();
-		deltaTime = (currentFrameTime - lastFrameTime) / 1000.0f;
-		lastFrameTime = currentFrameTime;
+		LAST = NOW;
+		NOW = SDL_GetPerformanceCounter();
+
+		deltaTime = (float)((NOW - LAST) / (double)SDL_GetPerformanceFrequency());
 
 		processInput();
 		updateScene();
@@ -128,16 +152,15 @@ void MainGame::processInput()
 {
 	SDL_Event evnt;
 
-	const float moveSpeed = 6.0f * deltaTime;
-	const float rotateSpeed = 90.0f * deltaTime;
+	//const float moveSpeed = 6.0f * deltaTime;
+	//const float rotateSpeed = 90.0f * deltaTime;
 	const float mouseSensitivity = 0.08f;
 
-	while(SDL_PollEvent(&evnt)) //get and process events
+	while (SDL_PollEvent(&evnt)) //get and process events
 	{
-		switch (evnt.type)
+		switch (evnt.type == SDL_QUIT)
 		{
-			case SDL_QUIT:
-				_gameState = GameState::EXIT;
+			_gameState = GameState::EXIT;
 		}
 
 		if (evnt.type == SDL_KEYDOWN)
@@ -162,60 +185,60 @@ void MainGame::processInput()
 				cameraPitch = -89.0f;
 		}
 
-		const Uint8* keys = SDL_GetKeyboardState(NULL);
-
-		glm::vec3 camPos = myCamera.getPos();
-		glm::vec3 camForward = myCamera.getForward();
-		glm::vec3 camUp = myCamera.getUp();
-		glm::vec3 camRight = glm::normalize(glm::cross(camForward, camUp));
-
-		glm::vec3 flatForward = glm::normalize(glm::vec3(camForward.x, 0.0f, camForward.z));
-		glm::vec3 flatRight = glm::normalize(glm::cross(flatForward, camUp));
-
-		glm::vec3 targetVelocity(0.0f);
-
-		float speed = 6.0f;
-
-		if (keys[SDL_SCANCODE_W])
-			targetVelocity += flatForward * speed;
-
-		if (keys[SDL_SCANCODE_S])
-			targetVelocity -= flatForward * speed;
-
-		if (keys[SDL_SCANCODE_A])
-			targetVelocity -= flatRight * speed;
-
-		if (keys[SDL_SCANCODE_D])
-			targetVelocity += flatRight * speed;
-
-		if (keys[SDL_SCANCODE_SPACE])
-			targetVelocity += camUp * speed;
-
-		if (keys[SDL_SCANCODE_LCTRL])
-			targetVelocity -= camUp * speed;
-
-		float smoothing = 10.0f;
-		cameraVelocity += (targetVelocity - cameraVelocity) * smoothing * deltaTime;
-
-		camPos += cameraVelocity * deltaTime;
-
-		myCamera.setPos(camPos);
-
-		if (keys[SDL_SCANCODE_Q]) 
-			cameraYaw -= 90.0f * deltaTime;
-
-		if (keys[SDL_SCANCODE_E])
-			cameraYaw += 90.0f * deltaTime;
-
-		glm::vec3 direction;
-		direction.x = cos(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
-		direction.y = sin(glm::radians(cameraPitch));
-		direction.z = sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
-
-		myCamera.setForward(direction);
-
 	}
-	
+
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+
+	glm::vec3 camPos = myCamera.getPos();
+	glm::vec3 camForward = myCamera.getForward();
+	glm::vec3 camUp = myCamera.getUp();
+	//glm::vec3 camRight = glm::normalize(glm::cross(camForward, camUp));
+
+	glm::vec3 flatForward = glm::normalize(glm::vec3(camForward.x, 0.0f, camForward.z));
+	glm::vec3 flatRight = glm::normalize(glm::cross(flatForward, camUp));
+
+	glm::vec3 targetVelocity(0.0f);
+
+	float speed = 6.0f;
+
+	if (keys[SDL_SCANCODE_W])
+		targetVelocity += flatForward * speed;
+
+	if (keys[SDL_SCANCODE_S])
+		targetVelocity -= flatForward * speed;
+
+	if (keys[SDL_SCANCODE_A])
+		targetVelocity -= flatRight * speed;
+
+	if (keys[SDL_SCANCODE_D])
+		targetVelocity += flatRight * speed;
+
+	if (keys[SDL_SCANCODE_SPACE])
+		targetVelocity += camUp * speed;
+
+	if (keys[SDL_SCANCODE_LCTRL])
+		targetVelocity -= camUp * speed;
+
+	if (keys[SDL_SCANCODE_Q])
+		cameraYaw -= 90.0f * deltaTime;
+
+	if (keys[SDL_SCANCODE_E])
+		cameraYaw += 90.0f * deltaTime;
+
+	float smoothing = 12.0f;
+	cameraVelocity += (targetVelocity - cameraVelocity) * smoothing * deltaTime;
+
+	camPos += cameraVelocity * deltaTime;
+
+
+	glm::vec3 direction;
+	direction.x = cos(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
+	direction.y = sin(glm::radians(cameraPitch));
+	direction.z = sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch));
+
+	myCamera.setPos(camPos);
+	myCamera.setForward(direction);
+
 }
 
 void MainGame::updateScene()
@@ -234,7 +257,21 @@ void MainGame::updateScene()
 	float duckX = centreX + sin(t) * width;
 	float duckZ = centreZ + sin(t * 2.0f) * depth;
 
-	duckTransform.SetPos(glm::vec3(duckX, 0.0f, duckZ));
+	float distToCentre = glm::distance(
+		glm::vec3(duckX, 0.0f, duckZ),
+		glm::vec3(centreX, 0.0f, centreZ)
+	);
+
+	bool duckAtCentre = distToCentre < 0.35f;
+
+	if (duckAtCentre && !duckWasAtCentre)
+	{
+		audio.play(duckSource);
+	}
+
+	duckWasAtCentre = duckAtCentre;
+
+	duckTransform.SetPos(glm::vec3(duckX, -0.4f, duckZ));
 
 	//Duck faces direction its travelling
 	float nextX = centreX + sin(t + 0.02f) * width;
@@ -252,7 +289,7 @@ void MainGame::updateScene()
 	ballTransform.SetPos(glm::vec3(4.5f, sin(t * 1.5f) * 0.18f, -5.5f));
 	ballTransform.SetRot(glm::vec3(sin(t) * 0.25f, 0.0f, cos(t) * 0.25f));
 
-	
+
 
 	buoyTransform.SetPos(glm::vec3(-4.5f, sin(t * 1.3f + 1.5f) * 0.15f, -5.5f));
 	buoyTransform.SetRot(glm::vec3(sin(t * 1.4f) * 0.25f, 0.0f, -sin(t * 1.4f) * 0.25));
@@ -300,6 +337,11 @@ void MainGame::drawGame()
 	buoyWhiteTexture.Bind(0);
 	ADS.Update(buoyTransform, myCamera);
 	buoyWhiteMesh.draw();
+
+	// Centre marker
+	centreMarkerTexture.Bind(0);
+	ADS.Update(centreMarkerTransform, myCamera);
+	centreMarkerMesh.draw();
 
 	//counter = counter + 0.01f;
 

@@ -7,8 +7,9 @@
 #include "Texture.h"
 #include "transform.h"
 #include "Skybox.h"
+#include "Audio.h"
 
-enum class GameState{PLAY, EXIT};
+enum class GameState { PLAY, EXIT };
 
 class MainGame
 {
@@ -29,7 +30,7 @@ private:
 
 	Display _gameDisplay;
 	GameState _gameState;
-	
+
 	Camera myCamera;
 	Shader shader;
 	Shader ADS;
@@ -45,6 +46,19 @@ private:
 	float deltaTime;
 	float lastFrameTime;
 	glm::vec3 cameraVelocity;
+
+	Audio audio;
+
+	ALuint waterBuffer;
+	ALuint duckBuffer;
+	ALuint waterSource;
+	ALuint duckSource;
+
+	bool duckWasAtCentre;
+
+	Mesh centreMarkerMesh;
+	Texture centreMarkerTexture;
+	Transform centreMarkerTransform;
 
 	Mesh duckMesh;
 	Mesh ballBlueMesh;
