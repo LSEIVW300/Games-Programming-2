@@ -61,15 +61,15 @@ private:
 	Transform centreMarkerTransform;
 
 	Mesh duckMesh;
-	Mesh ballBlueMesh;
-	Mesh ballYellowMesh;
+	Mesh ballGreenMesh;
+	Mesh ballWhiteMesh;
 	Mesh buoyRedMesh;
 	Mesh buoyWhiteMesh;
 	Mesh waterMesh;
 
 	Texture duckTexture;
-	Texture ballBlueTexture;
-	Texture ballYellowTexture;
+	Texture ballGreenTexture;
+	Texture ballWhiteTexture;
 	Texture buoyRedTexture;
 	Texture buoyWhiteTexture;
 	Texture waterTexture;

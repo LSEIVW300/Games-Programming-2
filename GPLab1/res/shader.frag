@@ -29,5 +29,13 @@ void main()
 
     waterColour = mix(waterColour, deepWater, distanceFade * 0.45);
 
+    float waveHighlight = sin((texCoord0.x * 5.0) + (time * 2.0)) * cos((texCoord0.y * 5.0) + (time * 1.5));
+
+    waveHighlight = waveHighlight * 0.04;
+
+    waterColour += waveHighlight;
+
+    waterColour = clamp(waterColour, 0.0, 1.0);
+
     FragColor = vec4(waterColour, 1.0);
 }

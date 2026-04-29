@@ -23,10 +23,10 @@ void MainGame::run()
 void MainGame::linkADS()
 {
 	// Define the light position
-	glm::vec3 lightPos(0.0f, 8.0f, -8.0f);
+	glm::vec3 lightPos(-4.0f, 10.0f, -8.0f);
 
 	// Define the light color (white light)
-	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+	glm::vec3 lightColor(1.15f, 1.12f, 1.05f);
 
 	// Define the object color
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
@@ -52,16 +52,16 @@ void MainGame::initSystems()
 
 	duckMesh.loadModel("..\\res\\duck.obj");
 
-	ballBlueMesh.loadModel("..\\res\\VolleyBallBlue.obj");
-	ballYellowMesh.loadModel("..\\res\\VolleyBallYellow.obj");
+	ballGreenMesh.loadModel("..\\res\\VolleyBallGreen.obj");
+	ballWhiteMesh.loadModel("..\\res\\VolleyBallWhite.obj");
 	buoyRedMesh.loadModel("..\\res\\lifebuoyred.obj");
 	buoyWhiteMesh.loadModel("..\\res\\lifebuoywhite.obj");
 	waterMesh.loadModel("..\\res\\water.obj");
 
 	duckTexture.init("..\\res\\rubberduckyellow.jpg");
-	ballBlueTexture.init("..\\res\\greenleather.jpg");
-	ballYellowTexture.init("..\\res\\whiteleather.jpg");
-	buoyRedTexture.init("..\\res\\redplastic.jpg");
+	ballGreenTexture.init("..\\res\\greenleather.jpg");
+	ballWhiteTexture.init("..\\res\\whiteleather.jpg");
+	buoyRedTexture.init("..\\res\\red.jpg");
 	buoyWhiteTexture.init("..\\res\\whiteplastic.jpg");
 	waterTexture.init("..\\res\\water1.jpg");
 
@@ -123,7 +123,7 @@ void MainGame::initSystems()
 	duckWasAtCentre = false;
 
 	centreMarkerMesh.loadModel("..\\res\\centreMarker.obj");
-	centreMarkerTexture.init("..\\res\\whiteplastic.jpg");
+	centreMarkerTexture.init("..\\res\\orange.jpg");
 
 	centreMarkerTransform.SetPos(glm::vec3(0.0f, -0.35f, -5.5f));
 	centreMarkerTransform.SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
@@ -270,8 +270,10 @@ void MainGame::updateScene()
 	}
 
 	duckWasAtCentre = duckAtCentre;
-
-	duckTransform.SetPos(glm::vec3(duckX, -0.4f, duckZ));
+	
+	float duckBaseY = -0.55f;
+	float duckBob = sin(t * 4.0f) * 0.06f;
+	duckTransform.SetPos(glm::vec3(duckX, duckBaseY + duckBob, duckZ));
 
 	//Duck faces direction its travelling
 	float nextX = centreX + sin(t + 0.02f) * width;
@@ -319,14 +321,14 @@ void MainGame::drawGame()
 	duckMesh.draw();
 
 	// Ball blue part
-	ballBlueTexture.Bind(0);
+	ballGreenTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
-	ballBlueMesh.draw();
+	ballGreenMesh.draw();
 
 	// Ball yellow part
-	ballYellowTexture.Bind(0);
+	ballWhiteTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
-	ballYellowMesh.draw();
+	ballWhiteMesh.draw();
 
 	// Buoy red part
 	buoyRedTexture.Bind(0);
