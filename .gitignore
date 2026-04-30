@@ -44,3 +44,7 @@
 # Allow exe
 !Debug/*.exe
 !x64/Debug/*.exe
+
+# Allow OBJ model assets
+!res/
+!res/*.obj
