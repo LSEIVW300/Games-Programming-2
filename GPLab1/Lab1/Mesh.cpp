@@ -11,7 +11,6 @@ void Mesh::init(Vertex* vertices, unsigned int numVertices, unsigned int* indice
 	{
 		model.positions.push_back(*vertices[i].GetPos());
 		model.texCoords.push_back(*vertices[i].GetTexCoord());
-		//model.normals.push_back(*vertices[i].GetNormal());
 	}
 
 	for (unsigned int i = 0; i < numIndices; i++)
@@ -53,7 +52,13 @@ void Mesh::initModel(const IndexedModel& model)
 
 Mesh::Mesh()
 {
-	drawCount = NULL;
+	drawCount = 0;
+	vertexArrayObject = 0;
+
+	for (unsigned int i = 0; i < NUM_BUFFERS; i++)
+	{
+		vertexArrayBuffers[i] = 0;
+	}
 }
 
 void Mesh::loadModel(const std::string& filename)
@@ -64,7 +69,10 @@ void Mesh::loadModel(const std::string& filename)
 
 Mesh::~Mesh()
 {
-	glDeleteVertexArrays(1, &vertexArrayObject); // delete arrays
+	if (vertexArrayObject != 0)
+		glDeleteVertexArrays(1, &vertexArrayObject); // delete arrays
+
+	glDeleteBuffers(NUM_BUFFERS, vertexArrayBuffers);
 }
 
 void Mesh::draw()
@@ -72,7 +80,6 @@ void Mesh::draw()
 	glBindVertexArray(vertexArrayObject);
 	
 	glDrawElements(GL_TRIANGLES, drawCount, GL_UNSIGNED_INT, 0);
-	//glDrawArrays(GL_TRIANGLES, 0, drawCount);
 	
 	glBindVertexArray(0);
 }

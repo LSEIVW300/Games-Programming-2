@@ -144,3 +144,15 @@ void Audio::play(ALuint source)
 {
 	alSourcePlay(source);
 }
+
+void Audio::deleteSource(ALuint source)
+{
+	if (source != 0)
+		alDeleteSources(1, &source);
+}
+
+void Audio::deleteBuffer(ALuint buffer)
+{
+	if (buffer != 0)
+		alDeleteBuffers(1, &buffer);
+}

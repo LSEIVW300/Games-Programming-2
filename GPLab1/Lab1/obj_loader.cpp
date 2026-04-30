@@ -321,7 +321,6 @@ glm::vec3 OBJModel::ParseOBJVec3(const std::string& line)
     
     return glm::vec3(x,y,z);
 
-    //glm::vec3(atof(tokens[1].c_str()), atof(tokens[2].c_str()), atof(tokens[3].c_str()))
 }
 
 glm::vec2 OBJModel::ParseOBJVec2(const std::string& line)
@@ -375,7 +374,7 @@ static inline unsigned int ParseOBJIndexValue(const std::string& token, unsigned
 
 static inline float ParseOBJFloatValue(const std::string& token, unsigned int start, unsigned int end)
 {
-    return atof(token.substr(start, end - start).c_str());
+    return static_cast<float>(atof(token.substr(start, end - start).c_str()));
 }
 
 static inline std::vector<std::string> SplitString(const std::string &s, char delim)

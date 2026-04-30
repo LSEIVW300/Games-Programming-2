@@ -5,6 +5,7 @@
 
 Texture::Texture()
 {
+	textureHandler = 0;
 }
 
 void Texture::init(const std::string& fileName)
@@ -35,7 +36,8 @@ void Texture::init(const std::string& fileName)
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &textureHandler); // number of and address of textures
+	if (textureHandler != 0)
+		glDeleteTextures(1, &textureHandler); // number of and address of textures
 }
 
 void Texture::Bind(unsigned int unit)

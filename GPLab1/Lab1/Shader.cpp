@@ -2,6 +2,18 @@
 
 Shader::Shader()
 {
+	shaderID = 0;
+
+	for (unsigned int i = 0; i < NUM_SHADERS; i++)
+	{
+		shaders[i] = 0;
+		uniforms[i] = 0;
+	}
+
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		shaders1[i] = 0;
+	}
 }
 
 void Shader::init(const std::string& vertFile, const std::string& fragFile)

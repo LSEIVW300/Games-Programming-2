@@ -1,4 +1,7 @@
-﻿  MainGame.cpp
-E:\Users\User\Documents\GitHub\Games Programming 2\GPLab1\Lab1\MainGame.cpp(161,21): warning C4145: '==': relational expression as switch expression; possible confusion with '='
-E:\Users\User\Documents\GitHub\Games Programming 2\GPLab1\Lab1\MainGame.cpp(164,3): warning C4060: switch statement contains no 'case' or 'default' labels
+﻿  Audio.cpp
+  Display.cpp
+  MainGame.cpp
+  Mesh.cpp
+  main.cpp
+  Generating Code...
   Lab1.vcxproj -> E:\Users\User\Documents\GitHub\Games Programming 2\GPLab1\Debug\Lab1.exe

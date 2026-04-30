@@ -7,11 +7,17 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
-	audio.cleanUp();
 }
 
 MainGame::~MainGame()
 {
+	audio.deleteSource(waterSource);
+	audio.deleteSource(duckSource);
+
+	audio.deleteBuffer(waterBuffer);
+	audio.deleteBuffer(duckBuffer);
+
+	audio.cleanUp();
 }
 
 void MainGame::run()
@@ -48,7 +54,7 @@ void MainGame::linkADS()
 void MainGame::initSystems()
 {
 	_gameDisplay.initDisplay();
-	//mesh1.init(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0])); //size calcuated by number of bytes of an array / no bytes of one element
+	
 
 	duckMesh.loadModel("..\\res\\duck.obj");
 
@@ -152,13 +158,11 @@ void MainGame::processInput()
 {
 	SDL_Event evnt;
 
-	//const float moveSpeed = 6.0f * deltaTime;
-	//const float rotateSpeed = 90.0f * deltaTime;
 	const float mouseSensitivity = 0.08f;
 
 	while (SDL_PollEvent(&evnt)) //get and process events
 	{
-		switch (evnt.type == SDL_QUIT)
+		if (evnt.type == SDL_QUIT)
 		{
 			_gameState = GameState::EXIT;
 		}
@@ -192,7 +196,6 @@ void MainGame::processInput()
 	glm::vec3 camPos = myCamera.getPos();
 	glm::vec3 camForward = myCamera.getForward();
 	glm::vec3 camUp = myCamera.getUp();
-	//glm::vec3 camRight = glm::normalize(glm::cross(camForward, camUp));
 
 	glm::vec3 flatForward = glm::normalize(glm::vec3(camForward.x, 0.0f, camForward.z));
 	glm::vec3 flatRight = glm::normalize(glm::cross(flatForward, camUp));
@@ -344,8 +347,6 @@ void MainGame::drawGame()
 	centreMarkerTexture.Bind(0);
 	ADS.Update(centreMarkerTransform, myCamera);
 	centreMarkerMesh.draw();
-
-	//counter = counter + 0.01f;
 
 	glDepthFunc(GL_LEQUAL);
 
