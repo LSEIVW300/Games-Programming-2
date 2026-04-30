@@ -3,7 +3,20 @@
 #include <iostream>
 #include <string>
 
+/*
+For the scene I have:
+- four textured 3D models (rubber duck, volleyball, lifebuoy and the centre marker cone)
+- a movable camera with keyboard and mouse input (WASD, QE and space/left ctrl)
+- an animated water surface that uses a custom fragment shader with scrolling textures
+- ADS lighting applied to the scene objects
+- a skybox
+- background audio (water) and triggered audio (duck quack) at the centre marker cone
 
+Behaviour:
+- the duck moves in a figure 8 path around the ball and buoy, duck has bobbing motion
+- ball and buoy move slightly to mimic floating in water
+- water texture scrolls to create the illusion of a moving surface
+*/
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
@@ -84,9 +97,9 @@ void MainGame::initSystems()
 	waterTransform.SetScale(glm::vec3(25.0f, 1.0f, 18.0f));
 
 
-	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); //water shader
-	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); //ADS shader
-	skyboxShader.init("..\\res\\skybox.vert", "..\\res\\skybox.frag"); //skybox shader
+	shader.init("..\\res\\shader.vert", "..\\res\\shader.frag"); // water shader
+	ADS.init("..\\res\\ADS.vert", "..\\res\\ADS.frag"); // ADS shader
+	skyboxShader.init("..\\res\\skybox.vert", "..\\res\\skybox.frag"); // skybox shader
 
 	std::vector<std::string> faces
 	{
@@ -160,7 +173,7 @@ void MainGame::processInput()
 
 	const float mouseSensitivity = 0.08f;
 
-	while (SDL_PollEvent(&evnt)) //get and process events
+	while (SDL_PollEvent(&evnt)) // get and process events
 	{
 		if (evnt.type == SDL_QUIT)
 		{
@@ -256,7 +269,7 @@ void MainGame::updateScene()
 	float width = 7.5f;
 	float depth = 4.8f;
 
-	//Duck figure 8 path
+	// Duck figure 8 path
 	float duckX = centreX + sin(t) * width;
 	float duckZ = centreZ + sin(t * 2.0f) * depth;
 
@@ -267,6 +280,7 @@ void MainGame::updateScene()
 
 	bool duckAtCentre = distToCentre < 0.35f;
 
+	// Duck sound plays when passing the centre of the figure 8
 	if (duckAtCentre && !duckWasAtCentre)
 	{
 		audio.play(duckSource);
@@ -275,10 +289,12 @@ void MainGame::updateScene()
 	duckWasAtCentre = duckAtCentre;
 	
 	float duckBaseY = -0.55f;
+
+	// Duck vertical bobbing 
 	float duckBob = sin(t * 4.0f) * 0.06f;
 	duckTransform.SetPos(glm::vec3(duckX, duckBaseY + duckBob, duckZ));
 
-	//Duck faces direction its travelling
+	// Duck faces direction its travelling
 	float nextX = centreX + sin(t + 0.02f) * width;
 	float nextZ = centreZ + sin((t + 0.02f) * 2.0f) * depth;
 
@@ -289,8 +305,7 @@ void MainGame::updateScene()
 
 	duckTransform.SetRot(glm::vec3(0.0f, angle, 0.0f));
 
-	//objects drifting (makes it look like the water is pushing them)
-
+	// objects drifting (makes it look like the water is pushing them)
 	ballTransform.SetPos(glm::vec3(4.5f, sin(t * 1.5f) * 0.18f, -5.5f));
 	ballTransform.SetRot(glm::vec3(sin(t) * 0.25f, 0.0f, cos(t) * 0.25f));
 
@@ -304,7 +319,7 @@ void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.0f, 0.0f, 0.0f, 1.0f);
 
-	// Water
+	// Water custom shader
 	shader.Bind();
 
 	glUniform1i(glGetUniformLocation(shader.ID(), "diffuse"), 0);
@@ -314,6 +329,7 @@ void MainGame::drawGame()
 	shader.Update(waterTransform, myCamera);
 	waterMesh.draw();
 
+	// ADS shader for lit objects
 	ADS.Bind();
 	linkADS();
 	glUniform1i(glGetUniformLocation(ADS.ID(), "diffuse"), 0);
@@ -323,12 +339,12 @@ void MainGame::drawGame()
 	ADS.Update(duckTransform, myCamera);
 	duckMesh.draw();
 
-	// Ball blue part
+	// Ball green part
 	ballGreenTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballGreenMesh.draw();
 
-	// Ball yellow part
+	// Ball white part
 	ballWhiteTexture.Bind(0);
 	ADS.Update(ballTransform, myCamera);
 	ballWhiteMesh.draw();
