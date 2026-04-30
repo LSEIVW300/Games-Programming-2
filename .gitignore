@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Allow project dependencies
+!deps/
+!deps/include/
+!deps/lib/
+!deps/lib/*.lib
+
+# Allow DLLs
+!*.dll
