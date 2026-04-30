@@ -149,8 +149,7 @@
               "RelativeToolTip": "Lab1\\Audio.cpp",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAJ0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T12:52:24.204Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T12:52:24.204Z"
             },
             {
               "$type": "Document",
@@ -374,8 +373,8 @@
               "Title": "MainGame.cpp",
               "DocumentMoniker": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp",
               "RelativeDocumentMoniker": "Lab1\\MainGame.cpp",
-              "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp*",
-              "RelativeToolTip": "Lab1\\MainGame.cpp*",
+              "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp",
+              "RelativeToolTip": "Lab1\\MainGame.cpp",
               "ViewState": "AgIAAPwAAAAAAAAAAAAAAAYBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-03T19:49:53.095Z",
