@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Audio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Audio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Users\\User\\Desktop\\lab\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}|Lab1\\Lab1.vcxproj|E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -105,7 +105,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -129,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainGame.h",
               "DocumentMoniker": "E:\\Users\\User\\Desktop\\lab\\MainGame.h",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\lab\\MainGame.h",
@@ -137,18 +137,17 @@
               "RelativeToolTip": "..\\..\\..\\..\\Desktop\\lab\\MainGame.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T12:52:54.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T12:52:54.876Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Audio.cpp",
               "DocumentMoniker": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Audio.cpp",
               "RelativeDocumentMoniker": "Lab1\\Audio.cpp",
               "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\Audio.cpp",
               "RelativeToolTip": "Lab1\\Audio.cpp",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAJ0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAJ0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-29T12:52:24.204Z",
               "EditorCaption": ""
@@ -295,8 +294,7 @@
               "RelativeToolTip": "Lab1\\MainGame.h",
               "ViewState": "AgIAACwAAAAAAAAAAAAwwEcAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-03T20:22:07.985Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T20:22:07.985Z"
             },
             {
               "$type": "Document",
@@ -344,8 +342,7 @@
               "RelativeToolTip": "Lab1\\Camera.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-03T19:54:05.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:54:05.503Z"
             },
             {
               "$type": "Document",
@@ -357,8 +354,7 @@
               "RelativeToolTip": "res\\shader.vert",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-03T19:52:58.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:52:58.798Z"
             },
             {
               "$type": "Document",
@@ -370,18 +366,17 @@
               "RelativeToolTip": "res\\ADS.frag",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-03T19:51:44.776Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:51:44.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MainGame.cpp",
               "DocumentMoniker": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp",
               "RelativeDocumentMoniker": "Lab1\\MainGame.cpp",
               "ToolTip": "E:\\Users\\User\\Documents\\GitHub\\Games Programming 2\\GPLab1\\Lab1\\MainGame.cpp",
               "RelativeToolTip": "Lab1\\MainGame.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAAAAYBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-03T19:49:53.095Z",
               "EditorCaption": ""
@@ -396,8 +391,7 @@
               "RelativeToolTip": "res\\ADS.vert",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-03T19:49:50.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:49:50.116Z"
             },
             {
               "$type": "Document",
@@ -409,8 +403,7 @@
               "RelativeToolTip": "Lab1\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-03T19:42:04.877Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T19:42:04.877Z"
             }
           ]
         }

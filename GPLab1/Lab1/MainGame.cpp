@@ -115,9 +115,10 @@ void MainGame::initSystems()
 
 	myCamera.initCamera(glm::vec3(0.0f, 10.0f, -17.0f), 70.0f, (float)_gameDisplay.getWidth() / _gameDisplay.getHeight(), 0.01f, 1000.0f);
 	myCamera.setLook(glm::vec3(0.0f, 0.0f, -5.5f));
+
 	counter = 0.0f;
 
-	cameraYaw = -90.0f;
+	cameraYaw = 90.0f;
 	cameraPitch = -25.0f;
 	firstMouse = true;
 	lastMouseX = 0.0f;
@@ -259,7 +260,7 @@ void MainGame::processInput()
 
 void MainGame::updateScene()
 {
-	counter += 0.0035f;
+	counter += 0.008f;
 
 	float t = counter;
 
