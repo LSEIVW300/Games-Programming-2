@@ -11,9 +11,8 @@ Display::Display()
 
 Display::~Display()
 {
-	SDL_GL_DeleteContext(glContext); // delete context
-	SDL_DestroyWindow(sdlWindow); // detete window (make sure to delete the context and the window in the opposite order of creation in initDisplay())
-	SDL_Quit();
+	SDL_GL_DeleteContext(glContext); 
+	SDL_DestroyWindow(sdlWindow); 
 }
 
 float Display::getWidth() { return screenWidth; } //getters

@@ -44,6 +44,6 @@ void Texture::Bind(unsigned int unit)
 {
 	assert(unit >= 0 && unit <= 31); /// check we are working with one of the 32 textures
 
-	glActiveTexture(GL_TEXTURE0 + unit); //set acitve texture unit
+	glActiveTexture(GL_TEXTURE0 + unit); //set active texture unit
 	glBindTexture(GL_TEXTURE_2D, textureHandler); //type of and texture to bind to unit
 }
