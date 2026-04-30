@@ -38,4 +38,9 @@
 !deps/lib/*.lib
 
 # Allow DLLs
-!*.dll
+!Debug/*.dll
+!x64/Debug/*.dll
+
+# Allow exe
+!Debug/*.exe
+!x64/Debug/*.exe
